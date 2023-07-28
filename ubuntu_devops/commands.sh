@@ -1,6 +1,12 @@
-docker rm -f $(docker images | grep "ubuntu_devops" | awk '{print $3}')
+docker stop -f $(docker ps -a | grep "ubuntu_devops" | awk '{print $1}')
+docker rm -f $(docker ps -a | grep "ubuntu_devops" | awk '{print $3}')
 docker rmi -f $(docker images | grep "ubuntu_devops" | awk '{print $3}')
 
+
+docker stop jenkins-docker
+docker rm jenkins-docker
+
+docker network rm jenkins
 docker network create jenkins
 
 docker run \
