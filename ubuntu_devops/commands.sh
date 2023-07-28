@@ -1,5 +1,5 @@
-docker stop -f $(docker ps -a | grep "ubuntu_devops" | awk '{print $1}')
-docker rm -f $(docker ps -a | grep "ubuntu_devops" | awk '{print $3}')
+docker stop $(docker ps -a | grep "ubuntu_devops" | awk '{print $1}')
+docker rm -f $(docker ps -a | grep "ubuntu_devops" | awk '{print $1}')
 docker rmi -f $(docker images | grep "ubuntu_devops" | awk '{print $3}')
 
 
