@@ -1,6 +1,5 @@
-
-docker rmi -f $(docker images | grep "ubuntu_devops" | awk '{print $3}')
 docker rm -f $(docker images | grep "ubuntu_devops" | awk '{print $3}')
+docker rmi -f $(docker images | grep "ubuntu_devops" | awk '{print $3}')
 
 docker network create jenkins
 
