@@ -91,9 +91,3 @@ USER root
 RUN rm -rf terraform_*.zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Switch to the "terraform" user
-USER terraform
-
-# Set the entry point command to run Terraform
-ENTRYPOINT ["/usr/local/bin/terraform"]
