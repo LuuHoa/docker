@@ -46,6 +46,12 @@ RUN mv terraform /usr/local/bin/
 # Check that it's installed
 RUN terraform --version 
 
+# Create a user named "terraform"
+RUN useradd -m -s /bin/bash terraform
+
+# Set the ownership of the Terraform binary to the "terraform" user
+RUN chown terraform:terraform /usr/local/bin/terraform
+
 ################################
 # Install python
 ################################
@@ -79,8 +85,15 @@ RUN apt-get install -y ansible
 USER jenkins
 RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
 
+
 USER root
 # Clean up
 RUN rm -rf terraform_*.zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Switch to the "terraform" user
+USER terraform
+
+# Set the entry point command to run Terraform
+ENTRYPOINT ["/usr/local/bin/terraform"]
